@@ -9,6 +9,7 @@ public class UserInfo {
     private String userId;
     private String userPw;
     private String userName;
+    private LocalDate userAge;
     private String userGender;
     private String userLocate;
 
@@ -16,10 +17,11 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(String userId, String userPw, String userName, String userGender, String userLocate) {
+    public UserInfo(String userId, String userPw, String userName, String userAge, String userGender, String userLocate) {
         this.userId = userId;
         this.userPw = userPw;
         this.userName = userName;
+        this.userAge = userAge;
         this.userGender = userGender;
         this.userLocate = userLocate;
     }
@@ -47,6 +49,14 @@ public class UserInfo {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public LocalDate getUserAge() {
+        return userAge;
+    }
+
+    public void setUserAge(LocalDate userAge) {
+        this.userAge = userAge;
     }
 
     public String getUserGender() {
