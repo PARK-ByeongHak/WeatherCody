@@ -1,48 +1,59 @@
-package com.cody.weather.config;
-
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // 다른 설정들을 추가할 수 있습니다.
-            .authorizeRequests()
-                .antMatchers("/user/profile").authenticated()
-                .and()
-            .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
+            .authorizeHttpRequests((authorizeRequests) ->
+                authorizeRequests
+                    .antMatchers("/signup").permitAll()
+                    .antMatchers("/user/profile").authenticated()
+            )
+            .formLogin(withDefaults())
+            .loginPage("/login")
+            .permitAll()
+            .defaultSuccessUrl("/")
+            .failureUrl("/login?error=true")
+            .and()
             .logout()
-                .logoutUrl("/logout")
-                .permitAll();
+            .logoutUrl("/logout")
+            .permitAll()
+            .and()
+            .csrf().disable()
+            .headers().frameOptions().disable();
+        return http.build();
     }
-    
-}
 
-//스프링 시큐리티를 사용한 비밀번호 정책 설정 예시
-@Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        UserDetails user = User.builder()
+            .username("user")
+            .password(passwordEncoder.encode("password"))
+            .roles("USER")
+            .build();
 
- @Override
- protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-     auth.inMemoryAuthentication()
-         .passwordEncoder(passwordEncoder())
-         .withUser("user")
-         .password(passwordEncoder().encode("password"))
-         .roles("USER");
- }
+        UserDetails admin = User.builder()
+            .username("admin")
+            .password(passwordEncoder.encode("password"))
+            .roles("ADMIN", "USER")
+            .build();
 
- @Bean
- public PasswordEncoder passwordEncoder() {
-     return new BCryptPasswordEncoder();
- }
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

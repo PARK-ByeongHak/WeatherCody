@@ -26,7 +26,7 @@
         </div>
     </form>
 
-    <c:if test="${not empty error}">
+    <c:if test="${param.error eq 'true'}">
         <p style="color: red;">${error}</p>
     </c:if>
 

@@ -26,18 +26,12 @@ public class UserService {
     public UserInfo saveUser(UserInfo userInfo) {
         return userInfoRepository.save(userInfo);
     }
-
-    // 회원 정보 조회
+    
+    // 로그인 인증
     public Optional<UserInfo> findByIdAndPassword(String userId, String password) {
-        Optional<UserInfo> userInfoOptional = userInfoRepository.findByIdAndUserPw(userId, password);
-
-        if (userInfoOptional.isPresent()) {
-            return userInfoOptional; // 비밀번호 일치
-        } else {
-            // 비밀번호 불일치 또는 사용자가 존재하지 않음
-            return Optional.empty();
-        }
+        return userInfoRepository.findByIdAndUserPw(userId, password);
     }
+    
 
     // 회원 정보 삭제
     public boolean deleteUser(String userId, String password) {
