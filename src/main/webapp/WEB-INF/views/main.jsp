@@ -26,21 +26,24 @@
     <h1>Weather Cody - 지금 날씨에 딱 맞는 코디 추천</h1>
 
     <!-- 주소 검색 상자 -->
-    <input type="text" id="location-input" placeholder="주소를 입력하세요">
-    <button onclick="searchWeather()">날씨 검색</button>
+    <!-- <input type="text" id="location-input" placeholder="주소를 입력하세요">
+    <button onclick="searchWeather()">날씨 검색</button> -->
 
     <!-- 날씨 표시 -->
-    <div id="weather-container"></div>
+    <!-- <div id="weather-container"></div> -->
 
     <!-- 날씨에 맞는 코디 추천 -->
-    <div id="outfit-recommendation"></div>
-
-    <script>
+    <!-- <div id="outfit-recommendation"></div> -->
+	
+    <!-- <script>
         function searchWeather() {
             // 여기에 날씨 API 호출 및 응답 처리 로직 구현
             // API 호출 결과를 사용하여 날씨 정보를 표시 코디 추천
         }
-    </script>
+    </script> -->
+    
+    
+    
 
 </body>
 </html>
