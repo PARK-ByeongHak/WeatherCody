@@ -1,3 +1,5 @@
+package com.cody.weather.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.User;
@@ -9,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
+
 @Configuration
 public class SecurityConfig {
 
@@ -17,8 +20,8 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests((authorizeRequests) ->
                 authorizeRequests
-                    .antMatchers("/signup").permitAll()
-                    .antMatchers("/user/profile").authenticated()
+                    .requestMatchers("/signup").permitAll()
+                    .requestMatchers("/user/profile").authenticated()
             )
             .formLogin(withDefaults())
             .loginPage("/login")

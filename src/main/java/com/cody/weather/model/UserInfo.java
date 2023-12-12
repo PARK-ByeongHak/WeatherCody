@@ -1,5 +1,7 @@
 package com.cody.weather.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -17,7 +19,7 @@ public class UserInfo {
     public UserInfo() {
     }
 
-    public UserInfo(String userId, String userPw, String userName, String userAge, String userGender, String userLocate) {
+    public UserInfo(String userId, String userPw, String userName, LocalDate userAge, String userGender, String userLocate) {
         this.userId = userId;
         this.userPw = userPw;
         this.userName = userName;

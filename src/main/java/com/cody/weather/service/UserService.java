@@ -32,6 +32,11 @@ public class UserService {
         return userInfoRepository.findByIdAndUserPw(userId, password);
     }
     
+    // 회원 정보
+    public Optional<UserInfo> findById(String userId) {
+        return userInfoRepository.findById(userId);
+    }
+    
 
     // 회원 정보 삭제
     public boolean deleteUser(String userId, String password) {
